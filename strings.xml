@@ -3,5 +3,7 @@
 
     <string name="app_name">parcelas</string>
     <string name="hello_world">Hello world!</string>
+    <string name="filesPath">.</string>
+    
 
 </resources>

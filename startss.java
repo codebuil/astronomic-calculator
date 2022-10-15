@@ -2,6 +2,37 @@ package parcelas.app.android;
 
 
 
+import android.app.Activity;
+import android.os.Bundle;
+
+import android.app.*;
+import android.os.*;
+
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.view.KeyEvent.Callback;
+import	android.view.KeyEvent;
+import android.view.MenuInflater;
+import 	android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.ViewConfiguration;
+
+import android.content.ContextWrapper;
+import android.view.ContextThemeWrapper;
+
+import android.content.Context;
+
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.EditText;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.app.*;
 import android.os.*;
 
@@ -437,400 +468,38 @@ import android.app.Application;
 import android.content.Context;
 
 
-
-public class MainActivity extends Activity 
+public class startss extends Activity
 {
+	
 	private Context context;
-	private ListView listview;
-	private SQLiteDatabase db;
-	private Cursor cursor;
-	private String filesspath;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	private ArrayList<Integer> tecla = new ArrayList<Integer>();
-
-	private ArrayList<String> string1 = new ArrayList<String>();
-	private ArrayList<String> string3 = new ArrayList<String>();
-	private ArrayList<String> string2 = new ArrayList<String>();
-	private ArrayList<String> string4 = new ArrayList<String>();
-
-
-
-
     /** Called when the activity is first created. */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.startsss);
+        context=this;
 
-        setContentView(R.layout.main);
+    }
 
-		context=this;
-		String total="0.0";
-		String valor="0.0";
-		setTitle("parcelas");
-		int st=0,en=0;
-		filesspath=System.getProperty("parcelas.app.android.datar") ;
-		File f2=new File(System.getProperty("parcelas.app.android.datar") );
-
+	public void  onOk_click(View v) {
+		final EditText edits1= (EditText) findViewById(R.id.edits1);
 		
-		int ii;
-		boolean b;
-		try{
-			if(!f2.exists()){
+			
+System.setProperty("parcelas.app.android.datar",edits1.getText().toString());
 
-				db =   openOrCreateDatabase  (f2.toString(),  Context.MODE_PRIVATE,   null);
-
-				db.execSQL("create table [parcelas] (Id integer primary key autoincrement,datas text,nome text not null,valor text)");
-
-				db.close();
-
-
-			}
-
-			db =   openOrCreateDatabase  (f2.toString(),  Context.MODE_PRIVATE,   null);
-
-			cursor = db.query("parcelas", new String[] { "Id","datas", "nome","valor"},null,null,null,null,"datas" ,null);
-			total="0.0";
-			if (cursor.moveToFirst()) {
-				do{
-					tecla.add(cursor.getInt(0));
-					string1.add(cursor.getString(1));
-					string2.add(cursor.getString(2));
-					valor=cursor.getString(3);
-					string3.add(valor);
 					
-					String s="",ss="";
-					boolean bb=false;
-					int l1;
-					int l2;
-					char cc=0;
-					boolean b2=false;
-					String TextEntered = func7(valor)+".0"; 
-					String TextEntered2 = func7(total)+".0"; 
 
-					String ssss="";
-					String[] temp1;
-					String delimiter = "\\.";
-					String[] temp2;
-					temp1 = TextEntered.split(delimiter);
-					temp2 = TextEntered2.split(delimiter);
-					ssss=func6(temp1[1],temp2[1]);
-					boolean bbb=false;
-					if (ssss.indexOf(".",0)>-1)bbb=true;
-					s=func5(temp1[0],temp2[0],bbb);
-					String s1=s+"."+ssss;
-					if(bbb)s1=s+ssss;
-					
-					total=s1;
-					string4.add(total);
-
-				}while(cursor.moveToNext());
-			}
-
-
-		}catch(Exception e){
-
-			setTitle(e.toString());
-		}
-		tecla.add(-1);
-		string1.add("add new entry");
-		string2.add("");
-		string3.add("");
-		string4.add("");
-
-        listview = (ListView) findViewById(R.id.listview);
-
-        listview.setAdapter(new yourAdaptar(this, string1,string2,string3,string4));
-
-		listview.setOnItemClickListener(new OnItemClickListener() {
-				public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-					// When clicked, show a toast with the TextView text
-
-
-
-
-
-
-
-					System.setProperty("parcelas.app.android.keys",Integer.toString( tecla.get(position)));
-
-					System.setProperty("parcelas.app.android.data", string1.get(position));
-
-					if(tecla.get(position)==-1){
-						System.setProperty("parcelas.app.android.data","");
-					}
-					System.setProperty("parcelas.app.android.nome",string2.get(position));
-					System.setProperty("parcelas.app.android.valor",string3.get(position));
-System.setProperty("parcelas.app.android.datar",filesspath);
 
 					try{
-						Intent intent = new Intent(context,main2activity.class);
+						Intent intent = new Intent(context,MainActivity.class);
 
 						startActivity(intent);  
 
 						finish(); 
 					}catch(Exception e){}
 
-				}
-			});
-
-
-
-    }
-	
-	
-	
-	private String func7(String ss)
-	{
-		String sss="";
-		sss=ss.replaceAll("'","");
-		return sss;
-	}
-
-	private String func6(String TextEntered,String TextEntered2)
-	{
-
-		String sss="";
-		String s="",ss="";
-		boolean b=false;
-		int l1;
-		int l2;
-		char cc=0;
-		boolean b2=false;
-
-		TextEntered =TextEntered+"0000000000000000000000000000000000000000000000" ;
-		TextEntered2 = TextEntered2+"0000000000000000000000000000000000000000000000";
-		if (TextEntered.length() > 45+43 || TextEntered2.length() > 45+43)b2 = true;
-
-
-		l1 = TextEntered.length() - 45;
-		l2 = TextEntered2.length() - 45;
-		TextEntered2 = TextEntered2.substring(0,43);
-
-		TextEntered = TextEntered.substring(0,43);
-		TextEntered2 = func(TextEntered2);
-		TextEntered = func(TextEntered);
-		if (b2)s = "erro";
-		else
-		{
-			for (l1 = 0;l1 < TextEntered.length();l1++)
-			{
 				
-				
-				char c20=TextEntered.charAt(l1);
-
-				char c21=TextEntered2.charAt(l1);
-
-
-				if(c20>'0'-1 && c20<'9'+1 && c21>'0'-1 && c21<'9'+1)cc = func2(c20,c21, b);
-else cc=255;
-				if (cc == 255 || b2)
-				{b2 = true;
-					s = "erro";
-					l1 = TextEntered.length() + 1;
-				}
-				else
-				{
-					b = false;
-					if (cc > '9')
-					{
-						b = true;
-						l2 = cc - '9';
-						l2 = l2 + ('0' - 1);
-						cc = (char)l2;
-					}
-					s = s + cc;
-				}
-			}}
-
-		boolean bb=b;
-		if (!b2)
-		{
-
-
-			s = func4(s);
-			s = func(s);
-			s = func3(s);
-		}
-
-		if (bb)s="."+s;
-		return s;
-	}
-
-
-	private String func5(String TextEntered,String TextEntered2,boolean v1)
-	{
-
-		String sss="";
-		String s="",ss="";
-		boolean b=v1;
-		int l1;
-		int l2;
-		char cc=0;
-		boolean b2=false;
-
-		TextEntered ="0000000000000000000000000000000000000000000000" + TextEntered;
-		TextEntered2 ="0000000000000000000000000000000000000000000000" + TextEntered2;
-		if (TextEntered.length() > 45+43 || TextEntered2.length() > 45+43)b2 = true;
-
-
-		l1 = TextEntered.length() - 45;
-		l2 = TextEntered2.length() - 45;
-		TextEntered2 = TextEntered2.substring(l2, TextEntered2.length());
-
-		TextEntered = TextEntered.substring(l1, TextEntered.length());
-		TextEntered2 = func(TextEntered2);
-		TextEntered = func(TextEntered);
-		if (b2)s = "erro";
-		else
-		{
-			for (l1 = 0;l1 < TextEntered.length();l1++)
-			{
-				
-				char c20=TextEntered.charAt(l1);
-
-				char c21=TextEntered2.charAt(l1);
-
-
-				if(c20>'0'-1 && c20<'9'+1 && c21>'0'-1 && c21<'9'+1)cc = func2(c20,c21, b);
-else cc=255;
-				if (cc == 255 || b2)
-				{b2 = true;
-					s = "erro";
-					l1 = TextEntered.length() + 1;
-				}
-				else
-				{
-					b = false;
-					if (cc > '9')
-					{
-						b = true;
-						l2 = cc - '9';
-						l2 = l2 + ('0' - 1);
-						cc = (char)l2;
-					}
-					s = s + cc;
-				}
-			}}
-			
-		boolean bb=b;
-		if (!b2)
-		{
-			s = func3(s);
-			s = func(s);
-			s = func4(s);
-
-		}
-
-		if (s=="")s="0";
-		if (bb)s="numero muito grande";
-		return s;
-	}
-	private String func4(String ss)
-	{
-		String sss="";
-		boolean b=false;
-		int i=0;
-		for (i = 0;i < ss.length();i++)
-		{
-			if (ss.charAt(i) != '0' && ss.charAt(i) != '\'') b = true;
-			if (b)sss = sss + ss.charAt(i);
-		}
-		return sss;
-	}
-
-	private String func3(String ss)
-	{
-		String sss="";
-		int f=0;
-		int contador=0;
-		for (f = 0;f < ss.length();f++)
-		{
-			sss = sss + ss.charAt(f);
-			contador++;
-			if (contador > 2)
-			{
-				contador = 0;
-				sss = sss + "'";
-			}
-		}
-		return sss;
-	}
-
-
-
-
-	private char func2(char c1, char c2, boolean b)
-	{
-		char cc='0';
-		int i1=c1 - '0';
-		int i2=c2 - '0';
-		int i3='9' + 10;
-
-		i1 = i1 + i2;
-
-		if (b)i1++;
-		if (i1 > 19) i1 = 255;
-		if (i1 != 255) i1 = '0' + i1;
-		cc = (char)i1;
-		return cc;
-	}
-
-
-
-	private String func(String ss)
-	{
-		int i;
-		String s="";
-		try
-		{
-			for (i = ss.length() - 1;i > -1;i--)
-			{
-				s = s + ss.charAt(i);
-			}
-		}
-		catch (Exception e)
-		{
-			setTitle(e.toString());
-		}
-		return s;
-	}
-	}
-
-
-
-
-
-	
-	
-
-
+	} 
+}
 

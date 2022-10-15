@@ -198,8 +198,8 @@ public class main2activity extends Activity
 				@Override 
 				public void onClick(View v) {
 					setTitle("adicionar");
-
-					File f2=new File("/sdcard/app.android/parcelas.app.android/parcelas.data");
+File f2=new File(System.getProperty("parcelas.app.android.datar")) ;
+					
 					db =   openOrCreateDatabase  (f2.toString(),  Context.MODE_PRIVATE,   null);
 
 					String s="INSERT INTO parcelas (datas,nome,valor) VALUES (\""+ED.getText()+"\",\""+ED2.getText()+"\",\""+ED3.getText()+"\")";
@@ -245,8 +245,8 @@ public class main2activity extends Activity
 				@Override 
 				public void onClick(View v) {
 					setTitle("modificar");
-
-					File f2=new File("/sdcard/app.android/parcelas.app.android/parcelas.data");
+File f2=new File(System.getProperty("parcelas.app.android.datar")) ;
+					
 					db =   openOrCreateDatabase  (f2.toString(),  Context.MODE_PRIVATE,   null);
 					db.delete("parcelas","Id<0",null);
 					db.delete("parcelas","Id="+Integer.toString(iii),null);
@@ -288,7 +288,7 @@ public class main2activity extends Activity
 				public void onClick(View v) {
 					setTitle("apagar");
 
-					File f2=new File("/sdcard/app.android/parcelas.app.android/parcelas.data");
+					File f2=new File(System.getProperty("parcelas.app.android.datar")) ;
 					db =   openOrCreateDatabase  (f2.toString(),  Context.MODE_PRIVATE,   null);
 					db.delete("parcelas","Id<0",null);
 					db.delete("parcelas","Id="+Integer.toString(iii),null);
@@ -314,7 +314,7 @@ public class main2activity extends Activity
 				public void onClick(View v) {
 					setTitle("0");
 					try{
-						File f2=new File("/sdcard/app.android/parcelas.app.android/parcelas.data");
+						File f2=new File(System.getProperty("parcelas.app.android.datar")) ;
 						db =   openOrCreateDatabase  (f2.toString(),  Context.MODE_PRIVATE,   null);
 						db.delete("parcelas","Id<>0",null);
 						db.delete("parcelas","Id<1",null);
